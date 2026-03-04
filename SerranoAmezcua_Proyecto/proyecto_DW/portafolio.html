@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portafolio – Maximiliano</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-grad: linear-gradient(175deg, #1a0a2e 0%, #5a1860 40%, #7a2060 65%, #2a0a40 100%);
+      --accent-yellow: #f5c842;
+      --accent-pink: #e8568a;
+      --accent-cyan: #4ecdc4;
+      --text: #f0eaf8;
+      --muted: #b8a8cc;
+      --border: rgba(255,255,255,0.18);
+      --font-head: 'Playfair Display', serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg-grad);
+      min-height: 100vh;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* HEADER */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 40px;
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(20, 5, 35, 0.65);
+      backdrop-filter: blur(8px);
+    }
+    .logo-star { font-size: 1.2rem; color: var(--text); }
+    .header-title {
+      font-size: 0.82rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav a {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--text);
+      padding-bottom: 1px;
+      transition: color .2s, border-color .2s;
+    }
+    nav a:hover, nav a.active { color: var(--accent-yellow); border-color: var(--accent-yellow); }
+
+    /* PAGE TITLE */
+    h1.page-title {
+      font-family: var(--font-head);
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 900;
+      padding: 50px 8% 40px;
+      letter-spacing: -0.01em;
+    }
+
+    /* PROJECTS – alternating layout like wireframe */
+    .projects { padding: 0 0 60px; }
+
+    /* Each project alternates: text-left img-right / img-left text-right */
+    article.project {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 0;
+      padding: 0 8%;
+      margin-bottom: 0;
+      border-bottom: 1px solid var(--border);
+      min-height: 260px;
+    }
+    article.project:nth-child(even) .proj-info { order: 2; }
+    article.project:nth-child(even) .proj-img  { order: 1; }
+
+    .proj-info { padding: 44px 40px 44px 0; }
+    article.project:nth-child(even) .proj-info { padding: 44px 0 44px 40px; }
+
+    .proj-title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      font-style: italic;
+      margin-bottom: 14px;
+    }
+    .proj-title.yellow { color: var(--accent-yellow); }
+    .proj-title.pink   { color: var(--accent-pink); }
+    .proj-title.cyan   { color: var(--accent-cyan); }
+    .proj-title.white  { color: var(--text); }
+
+    .proj-desc { font-size: 0.88rem; opacity: 0.88; margin-bottom: 14px; }
+
+    .proj-tech-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent-yellow);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+    .tech-list { list-style: disc; padding-left: 18px; font-size: 0.85rem; opacity: 0.85; margin-bottom: 14px; }
+    .tech-list li { margin-bottom: 2px; }
+
+    .ver-proyecto {
+      font-size: 0.82rem;
+      color: var(--accent-yellow);
+      border-bottom: 1px solid var(--accent-yellow);
+      padding-bottom: 1px;
+      display: inline-block;
+      transition: opacity .2s;
+    }
+    .ver-proyecto:hover { opacity: 0.7; }
+
+    .proj-img {
+      padding: 24px 0 24px 30px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    article.project:nth-child(even) .proj-img { padding: 24px 30px 24px 0; }
+
+    .proj-img img {
+      width: 100%; max-width: 380px;
+      max-height: 220px;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+    }
+    /* ORB project has special layout: white bg */
+    .proj-img.orb-img img {
+      background: #fff;
+      padding: 16px;
+      border-radius: 8px;
+    }
+
+    /* SKILLS TABLE */
+    .skills-section {
+      padding: 60px 8%;
+      background: rgba(30, 5, 45, 0.4);
+      border-top: 1px solid var(--border);
+    }
+    .skills-section h2 {
+      font-family: var(--font-head);
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 30px;
+      color: var(--accent-yellow);
+    }
+    .skills-table {
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 700px;
+    }
+    .skills-table th, .skills-table td {
+      border: 1.5px solid var(--border);
+      padding: 13px 20px;
+      font-size: 0.88rem;
+      text-align: left;
+    }
+    .skills-table th { font-weight: 500; color: var(--text); }
+    .stars { color: var(--accent-yellow); letter-spacing: 2px; }
+
+    /* FOOTER */
+    footer {
+      background: rgba(10, 2, 16, 0.88);
+      padding: 28px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-social { font-size: 0.78rem; color: var(--muted); line-height: 2.1; }
+    .footer-social strong { display: block; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); margin-bottom: 4px; }
+    .footer-social a { color: var(--muted); transition: color .2s; }
+    .footer-social a:hover { color: var(--accent-yellow); }
+    .footer-copy { font-size: 0.72rem; color: var(--muted); align-self: flex-end; }
+
+    @media (max-width: 700px) {
+      article.project { grid-template-columns: 1fr; }
+      article.project:nth-child(even) .proj-info,
+      article.project:nth-child(even) .proj-img { order: unset; }
+      .proj-info, article.project:nth-child(even) .proj-info { padding: 30px 0; }
+      .proj-img, article.project:nth-child(even) .proj-img { padding: 0 0 30px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="logo-star" title="Volver al inicio">★</a>
+    <span class="header-title">Portafolio</span>
+    <nav>
+      <ul>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1 class="page-title">Mi Portafolio</h1>
+
+    <section class="projects" aria-label="Proyectos">
+
+      <!-- Proyecto 1: MY ORB -->
+      <article class="project">
+        <div class="proj-info">
+          <h2 class="proj-title white">MY ORB</h2>
+          <p class="proj-desc">
+            diseño minimalista para pagina oficial de la marca ORB para pedidos y productos disponibles
+          </p>
+          <p class="proj-tech-label">Tecnologias:</p>
+          <ul class="tech-list">
+            <li>React.js</li>
+            <li>Node.js</li>
+            <li>MongoDB</li>
+          </ul>
+          <a href="#" class="ver-proyecto">ver proyecto ↗</a>
+        </div>
+        <div class="proj-img orb-img">
+          <img
+            src="img/ORB.png"
+            alt="Captura de pantalla del proyecto MY ORB"
+            width="380" height="220"
+          />
+        </div>
+      </article>
+
+      <!-- Proyecto 2: INTIMO -->
+      <article class="project">
+        <div class="proj-info">
+          <h3 class="proj-title yellow">INTIMO</h3>
+          <p class="proj-desc">
+            Sitio web elegante para un catering de alta cocina. Diseño sofisticado que refleja la esencia de la marca con fotografías de alta calidad y reservas en línea integradas.
+          </p>
+          <p class="proj-tech-label">Tecnologias:</p>
+          <ul class="tech-list">
+            <li>HTML5 / CSS3</li>
+            <li>JavaScript</li>
+            <li>WordPress</li>
+          </ul>
+          <a href="#" class="ver-proyecto">ver proyecto ↗</a>
+        </div>
+        <div class="proj-img">
+          <img
+            src="img/INTIMO.png"
+            alt="Captura del sitio web Intimo Catering"
+            width="380" height="220"
+          />
+        </div>
+      </article>
+
+      <!-- Proyecto 3: DOLCE AMOR -->
+      <article class="project">
+        <div class="proj-info">
+          <h3 class="proj-title pink">DOLCE AMOR</h3>
+          <p class="proj-desc">
+            Tienda online y catálogo visual para repostería artesanal. Incluye galería de productos, sistema de pedidos personalizado y diseño cálido que transmite la identidad dulce y artesanal de la marca.
+          </p>
+          <p class="proj-tech-label">Tecnologias:</p>
+          <ul class="tech-list">
+            <li>Webflow</li>
+            <li>CSS Animations</li>
+            <li>Figma (diseño)</li>
+          </ul>
+          <a href="#" class="ver-proyecto">ver proyecto ↗</a>
+        </div>
+        <div class="proj-img">
+          <img
+            src="img/DOLCE.png"
+            alt="Captura del sitio Dolce Amor repostería"
+            width="380" height="220"
+          />
+        </div>
+      </article>
+
+      <!-- Proyecto 4: BILLIE EILISH FAN PAGE -->
+      <article class="project">
+        <div class="proj-info">
+          <h3 class="proj-title cyan">BILLIE EILISH</h3>
+          <p class="proj-desc">
+            Sitio web conceptual para la artista Billie Eilish. Diseño oscuro y editorial con tipografía expresiva, animaciones fluidas y galería multimedia que captura la estética única del proyecto.
+          </p>
+          <p class="proj-tech-label">Tecnologias:</p>
+          <ul class="tech-list">
+            <li>HTML5 / CSS3</li>
+            <li>GSAP Animations</li>
+            <li>Vanilla JavaScript</li>
+          </ul>
+          <a href="#" class="ver-proyecto">ver proyecto ↗</a>
+        </div>
+        <div class="proj-img">
+          <img
+            src="img/BE.png"
+            alt="Captura del sitio fan Billie Eilish"
+            width="380" height="220"
+          />
+        </div>
+      </article>
+
+    </section>
+
+    <!-- TABLA DE HABILIDADES -->
+    <section class="skills-section" aria-label="Tabla de habilidades tecnológicas">
+      <h2>Tecnologías &amp; Habilidades</h2>
+      <table class="skills-table" aria-label="Comparativa de tecnologías">
+        <thead>
+          <tr>
+            <th scope="col">Tecnología</th>
+            <th scope="col">Nivel (1–5)</th>
+            <th scope="col">Años de experiencia</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>HTML5 / CSS3</td>
+            <td><span class="stars">★★★★★</span></td>
+            <td>6 años</td>
+          </tr>
+          <tr>
+            <td>JavaScript</td>
+            <td><span class="stars">★★★★</span>☆</td>
+            <td>5 años</td>
+          </tr>
+          <tr>
+            <td>React.js</td>
+            <td><span class="stars">★★★★</span>☆</td>
+            <td>3 años</td>
+          </tr>
+          <tr>
+            <td>Figma / Adobe XD</td>
+            <td><span class="stars">★★★★★</span></td>
+            <td>4 años</td>
+          </tr>
+          <tr>
+            <td>WordPress / Webflow</td>
+            <td><span class="stars">★★★★</span>☆</td>
+            <td>5 años</td>
+          </tr>
+          <tr>
+            <td>Node.js</td>
+            <td><span class="stars">★★★</span>☆☆</td>
+            <td>2 años</td>
+          </tr>
+          <tr>
+            <td>Python</td>
+            <td><span class="stars">★★★</span>☆☆</td>
+            <td>2 años</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-social">
+      <strong>Redes Sociales</strong>
+      <a href="#">instagram: @sa.maax_</a><br>
+      <span>telefono: 1234567899</span><br>
+      <a href="/cdn-cgi/l/email-protection#a7cac6dfcecacecbcec6c9c8d4c2d5c6c9c8969e9296e7c0cac6cecb89c4c8ca">correo: maximilianoserrano1951gmail.com <span class="__cf_email__" data-cfemail="a0cdc1d8c9cdc9ccc9c1cecfd3c5d2c1cecf9199
